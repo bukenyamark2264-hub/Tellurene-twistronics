@@ -2,15 +2,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-# ============================================================
+# ***********************************************************
 # Twisted Bilayer α-Tellurene
 # Geometric + Interlayer Physics + Relaxation
 # Continuum phenomenological model
-# ============================================================
+# /////////////////////////////////////////////////////////////
 
-# -----------------------------
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 # 1. Physical Parameters
-# -----------------------------
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 a0 = 4.20                 # lattice constant (Å) – approximate
 grid_size = 150          # visualization window (Å)
@@ -21,9 +21,9 @@ alpha_relax = 0.15       # in-plane relaxation strength
 z_amp = 1.0              # out-of-plane corrugation amplitude
 
 
-# -----------------------------
+# ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 # 2. Build Base Hexagonal Lattice
-# -----------------------------
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 def build_lattice(N, a):
     x, y = [], []
@@ -43,7 +43,7 @@ x1, y1 = build_lattice(N, a0)        #my bottom layer coordinates
 
 # -----------------------------
 # 3. Rotation Function
-# -----------------------------
+# ================================
 
 def rotate(x, y, theta_deg):
     theta = np.radians(theta_deg)
@@ -53,9 +53,9 @@ def rotate(x, y, theta_deg):
     return xr, yr
 
 
-# -----------------------------
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # 4. Moiré Wavelength
-# -----------------------------
+# }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 
 def moire_wavelength(theta_deg, a):
     if abs(theta_deg) < 0.01: # abs represents the absolute value of the angle to avoid division dy zero.
@@ -64,9 +64,9 @@ def moire_wavelength(theta_deg, a):
     return a / (2 * np.sin(theta/2)) # DO NOT FORGET TO LOOK HERE
 
 
-# -----------------------------
+# ++++++++++++++++++++++++++++++++++++++
 # 5. Stacking Energy Field   Potential Energy Surface (PES): the landscape of energy that atoms feel when they sit on top of each other
-# -----------------------------
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 def stacking_energy(x, y, lambda_m):
     G = 2 * np.pi / lambda_m
@@ -84,7 +84,7 @@ def stacking_energy(x, y, lambda_m):
 
 # -----------------------------
 # 6. In-Plane Relaxation
-# -----------------------------
+# $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 def relax_positions(x, y, E, lambda_m):
     G = 2 * np.pi / lambda_m
@@ -99,9 +99,9 @@ def relax_positions(x, y, E, lambda_m):
     return x_rel, y_rel
 
 
-# -----------------------------
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # 7. Out-of-Plane Corrugation
-# -----------------------------
+# &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 def corrugation(E):
     # Higher stacking energy → larger height
@@ -131,9 +131,9 @@ cbar.set_label("Stacking Energy / Height")
 title = ax.set_title("")
 
 
-# -----------------------------
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # 9. Animation Update
-# -----------------------------
+# """""""""""""""""""""""""""""""""""""""""
 
 def update(frame):
 
@@ -167,9 +167,9 @@ def update(frame):
     return top, title
 
 
-# -----------------------------
+# ++++++++++++++++++++++++++++++++++++
 # 10. Run Animation
-# -----------------------------
+# +++++++++++++++++++++++++++++++++++
 
 angles = np.linspace(0.5, 10, 300)  # small angles more interesting
 anim = FuncAnimation(fig, update, frames=angles,
@@ -194,4 +194,5 @@ plt.grid(True)
 plt.savefig("moire_wavelength_vs_angle.png", dpi=600, bbox_inches='tight')
 
 plt.show()
+
 plt.show()
